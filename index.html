@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Tournoi Gaming World</title>
+<title>Gaming World Hub</title>
 
 <style>
 body{
@@ -13,11 +13,12 @@ color:white;
 }
 
 header{
-background:linear-gradient(90deg,#2563eb,#7c3aed);
+background:linear-gradient(90deg,#ffcc00,#ff8800);
 padding:20px;
 text-align:center;
-font-size:22px;
+font-size:24px;
 font-weight:bold;
+color:#111;
 }
 
 .container{
@@ -47,7 +48,7 @@ color:white;
 }
 
 button{
-background:#22c55e;
+background:#2563eb;
 color:white;
 font-weight:bold;
 cursor:pointer;
@@ -78,27 +79,44 @@ padding:10px;
 border-radius:10px;
 }
 
+select{
+width:100%;
+padding:10px;
+margin-top:10px;
+border-radius:8px;
+background:#1f2937;
+color:white;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-🏆 Tournoi Gaming World
+🎮 Gaming World Hub
 </header>
 
 <div class="container">
 
 <!-- INSCRIPTION -->
 <div class="card">
-<h2>👤 Rejoindre</h2>
+<h2>👤 Inscription</h2>
+
 <input id="name" placeholder="Pseudo">
+
+<select id="game">
+<option value="Blox Fruits">Blox Fruits</option>
+<option value="Brookhaven">Brookhaven</option>
+<option value="Pet Simulator">Pet Simulator</option>
+<option value="Adopt Me">Adopt Me</option>
+</select>
+
 <button onclick="join()">Rejoindre</button>
 </div>
 
 <!-- PLAYERS -->
 <div class="card">
-<h2>👥 Joueurs</h2>
+<h2>👥 Joueurs inscrits</h2>
 <div id="players"></div>
 </div>
 
@@ -124,8 +142,9 @@ border-radius:10px;
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, push, onValue, onChildAdded, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, push, onValue, onChildAdded } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
+// 🔥 TON FIREBASE
 const firebaseConfig = {
   apiKey: "TON_API_KEY",
   authDomain: "gaming-world-e84dd.firebaseapp.com",
@@ -139,18 +158,21 @@ const db = getDatabase(app);
 const playersRef = ref(db,"players");
 const chatRef = ref(db,"chat");
 
-// 👤 JOIN
+// 👤 INSCRIPTION
 window.join = function(){
 let name = document.getElementById("name").value;
+let game = document.getElementById("game").value;
+
 if(!name) return;
 
 push(playersRef,{
 name:name,
+game:game,
 score:0
 });
 }
 
-// 👥 PLAYERS + MATCHS
+// 👥 PLAYERS
 onValue(playersRef,(snap)=>{
 let data = snap.val();
 let players = [];
@@ -164,7 +186,8 @@ players.push({id,...data[id]});
 list.innerHTML += `
 <div class="player">
 👤 ${data[id].name}
-⭐ ${data[id].score || 0}
+🎮 ${data[id].game}
+⭐ ${data[id].score}
 </div>`;
 }
 
@@ -181,32 +204,9 @@ if(players[i+1]){
 m.innerHTML += `
 <div class="match">
 ${players[i].name} ⚔️ ${players[i+1].name}
-<br><br>
-
-<button onclick="win('${players[i].id}')">
-🏆 ${players[i].name}
-</button>
-
-<button onclick="win('${players[i+1].id}')">
-🏆 ${players[i+1].name}
-</button>
-
-</div>
-`;
+</div>`;
 }
 }
-}
-
-// 🏆 SCORE FIX PROPRE (IMPORTANT)
-window.win = function(id){
-let playerRef = ref(db,"players/"+id);
-
-runTransaction(playerRef,(player)=>{
-if(player){
-player.score = (player.score || 0) + 1;
-}
-return player;
-});
 }
 
 // 💬 CHAT
