@@ -2,231 +2,229 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tournois Gaming Mondiaux</title>
+<title>Tournoi Gaming World</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
-    background:#121212;
-    color:white;
-    margin:0;
-    padding:20px;
+margin:0;
+font-family:Arial;
+background:#0b1220;
+color:white;
 }
 
-h1,h2{
-    text-align:center;
+header{
+background:linear-gradient(90deg,#2563eb,#7c3aed);
+padding:20px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
 }
 
 .container{
-    max-width:1200px;
-    margin:auto;
+max-width:900px;
+margin:auto;
+padding:20px;
 }
 
 .card{
-    background:#1f1f1f;
-    padding:20px;
-    border-radius:10px;
-    margin-bottom:20px;
+background:#111827;
+padding:15px;
+border-radius:12px;
+margin-bottom:15px;
 }
 
-input, select{
-    width:100%;
-    padding:10px;
-    margin:5px 0;
-    border:none;
-    border-radius:5px;
+input,button{
+width:100%;
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+}
+
+input{
+background:#1f2937;
+color:white;
 }
 
 button{
-    background:#00c853;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    border-radius:5px;
-    cursor:pointer;
+background:#22c55e;
+color:white;
+font-weight:bold;
+cursor:pointer;
 }
 
-button:hover{
-    background:#00a844;
+.player{
+display:flex;
+justify-content:space-between;
+padding:8px;
+background:#1f2937;
+margin:5px 0;
+border-radius:6px;
 }
 
-table{
-    width:100%;
-    border-collapse:collapse;
+.match{
+padding:10px;
+background:#374151;
+margin:5px 0;
+border-radius:8px;
+text-align:center;
 }
 
-th,td{
-    border:1px solid #444;
-    padding:10px;
-    text-align:center;
+.chatBox{
+height:180px;
+overflow:auto;
+background:#0f172a;
+padding:10px;
+border-radius:10px;
 }
 
-th{
-    background:#2b2b2b;
-}
-
-.jeux{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-    gap:10px;
-}
-
-.jeu{
-    background:#2a2a2a;
-    padding:10px;
-    border-radius:5px;
-}
 </style>
 </head>
+
 <body>
+
+<header>
+🏆 Tournoi Gaming World
+</header>
 
 <div class="container">
 
-<h1>🌍 Tournois Gaming Mondiaux</h1>
-
+<!-- INSCRIPTION -->
 <div class="card">
-<h2>Inscription</h2>
-
-<input type="text" id="pseudo" placeholder="Pseudo">
-
-<input type="text" id="pays" placeholder="Pays">
-
-<select id="jeu">
-<option>Counter-Strike 2</option>
-<option>Valorant</option>
-<option>Fortnite</option>
-<option>League of Legends</option>
-<option>Dota 2</option>
-<option>Rocket League</option>
-<option>Minecraft</option>
-<option>Roblox</option>
-<option>EA Sports FC 26</option>
-<option>eFootball</option>
-<option>Call of Duty</option>
-<option>Overwatch 2</option>
-<option>Apex Legends</option>
-<option>PUBG</option>
-<option>Rainbow Six Siege</option>
-<option>Forza Horizon 5</option>
-<option>Need for Speed Unbound</option>
-<option>Assetto Corsa</option>
-<option>Street Fighter 6</option>
-<option>Tekken 8</option>
-<option>Mortal Kombat 1</option>
-<option>Elden Ring</option>
-<option>Cyberpunk 2077</option>
-<option>The Witcher 3</option>
-<option>Baldur's Gate 3</option>
-<option>Age of Empires IV</option>
-<option>StarCraft II</option>
-<option>Civilization VII</option>
-<option>Terraria</option>
-<option>Among Us</option>
-</select>
-
-<button onclick="inscrire()">S'inscrire</button>
+<h2>👤 Rejoindre</h2>
+<input id="name" placeholder="Pseudo">
+<button onclick="join()">Rejoindre</button>
 </div>
 
+<!-- PLAYERS -->
 <div class="card">
-<h2>Participants</h2>
-
-<table>
-<thead>
-<tr>
-<th>Pseudo</th>
-<th>Pays</th>
-<th>Jeu</th>
-<th>Points</th>
-<th>Victoire</th>
-</tr>
-</thead>
-
-<tbody id="participants"></tbody>
-</table>
+<h2>👥 Joueurs</h2>
+<div id="players"></div>
 </div>
 
+<!-- MATCHS -->
 <div class="card">
-<h2>Jeux Disponibles</h2>
-
-<div class="jeux">
-<div class="jeu">Counter-Strike 2</div>
-<div class="jeu">Valorant</div>
-<div class="jeu">Fortnite</div>
-<div class="jeu">League of Legends</div>
-<div class="jeu">Dota 2</div>
-<div class="jeu">Rocket League</div>
-<div class="jeu">Minecraft</div>
-<div class="jeu">Roblox</div>
-<div class="jeu">EA Sports FC 26</div>
-<div class="jeu">eFootball</div>
-<div class="jeu">Call of Duty</div>
-<div class="jeu">Overwatch 2</div>
-<div class="jeu">Apex Legends</div>
-<div class="jeu">PUBG</div>
-<div class="jeu">Rainbow Six Siege</div>
-<div class="jeu">Forza Horizon 5</div>
-<div class="jeu">Need for Speed Unbound</div>
-<div class="jeu">Assetto Corsa</div>
-<div class="jeu">Street Fighter 6</div>
-<div class="jeu">Tekken 8</div>
-<div class="jeu">Mortal Kombat 1</div>
-<div class="jeu">Elden Ring</div>
-<div class="jeu">Cyberpunk 2077</div>
-<div class="jeu">The Witcher 3</div>
-<div class="jeu">Baldur's Gate 3</div>
-<div class="jeu">Age of Empires IV</div>
-<div class="jeu">StarCraft II</div>
-<div class="jeu">Civilization VII</div>
-<div class="jeu">Terraria</div>
-<div class="jeu">Among Us</div>
-</div>
+<h2>⚔️ Matchs</h2>
+<div id="matches"></div>
 </div>
 
+<!-- CHAT -->
 <div class="card">
-<h2>Règles</h2>
-<p>✅ Tournois gratuits.</p>
-<p>✅ Joueurs du monde entier.</p>
-<p>✅ Aucun prix réel.</p>
-<p>✅ Aucun argent à gagner.</p>
-<p>✅ Pour le plaisir et la compétition amicale.</p>
-</div>
+<h2>💬 Chat mondial</h2>
+
+<div id="chatBox" class="chatBox"></div>
+
+<input id="msg" placeholder="Message">
+<button onclick="sendMsg()">Envoyer</button>
 
 </div>
 
-<script>
-function inscrire(){
+</div>
 
-let pseudo = document.getElementById("pseudo").value;
-let pays = document.getElementById("pays").value;
-let jeu = document.getElementById("jeu").value;
+<script type="module">
 
-if(pseudo === "" || pays === ""){
-    alert("Veuillez remplir tous les champs.");
-    return;
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, push, onValue, onChildAdded, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "TON_API_KEY",
+  authDomain: "gaming-world-e84dd.firebaseapp.com",
+  databaseURL: "https://gaming-world-e84dd-default-rtdb.firebaseio.com/",
+  projectId: "gaming-world-e84dd"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const playersRef = ref(db,"players");
+const chatRef = ref(db,"chat");
+
+// 👤 JOIN
+window.join = function(){
+let name = document.getElementById("name").value;
+if(!name) return;
+
+push(playersRef,{
+name:name,
+score:0
+});
 }
 
-let ligne = document.createElement("tr");
+// 👥 PLAYERS + MATCHS
+onValue(playersRef,(snap)=>{
+let data = snap.val();
+let players = [];
 
-ligne.innerHTML = `
-<td>${pseudo}</td>
-<td>${pays}</td>
-<td>${jeu}</td>
-<td>0</td>
-<td><button onclick="gagner(this)">+1</button></td>
+let list = document.getElementById("players");
+list.innerHTML = "";
+
+for(let id in data){
+players.push({id,...data[id]});
+
+list.innerHTML += `
+<div class="player">
+👤 ${data[id].name}
+⭐ ${data[id].score || 0}
+</div>`;
+}
+
+generateMatches(players);
+});
+
+// ⚔️ MATCHS
+function generateMatches(players){
+let m = document.getElementById("matches");
+m.innerHTML = "";
+
+for(let i=0;i<players.length;i+=2){
+if(players[i+1]){
+m.innerHTML += `
+<div class="match">
+${players[i].name} ⚔️ ${players[i+1].name}
+<br><br>
+
+<button onclick="win('${players[i].id}')">
+🏆 ${players[i].name}
+</button>
+
+<button onclick="win('${players[i+1].id}')">
+🏆 ${players[i+1].name}
+</button>
+
+</div>
 `;
-
-document.getElementById("participants").appendChild(ligne);
-
-document.getElementById("pseudo").value="";
-document.getElementById("pays").value="";
+}
+}
 }
 
-function gagner(btn){
-let pointsCell = btn.parentElement.previousElementSibling;
-let points = parseInt(pointsCell.innerText);
-pointsCell.innerText = points + 1;
+// 🏆 SCORE FIX PROPRE (IMPORTANT)
+window.win = function(id){
+let playerRef = ref(db,"players/"+id);
+
+runTransaction(playerRef,(player)=>{
+if(player){
+player.score = (player.score || 0) + 1;
 }
+return player;
+});
+}
+
+// 💬 CHAT
+window.sendMsg = function(){
+let msg = document.getElementById("msg").value;
+if(!msg) return;
+
+push(chatRef,{text:msg});
+document.getElementById("msg").value="";
+}
+
+onChildAdded(chatRef,(snap)=>{
+let v = snap.val();
+
+document.getElementById("chatBox").innerHTML +=
+`<div>💬 ${v.text}</div>`;
+});
+
 </script>
 
 </body>
